@@ -1,0 +1,50 @@
+
+	<h1>Home#index</h1>
+	<p>Find me in app/views/home/index.html.erb</p>
+	
+	<%= form_tag '#', id: 'message' do %>
+	  <%= text_field_tag 'body' %>
+	<% end %>
+	<ul id="message-list">
+	</ul>
+	
+	<div id="sys_message">
+	    システムメッセージがでます
+	</div>
+	
+	<%= link_to 'トップ画面へ', controller: 'welcome' %>
+
+
+    <!-- モーダル・ダイアログ -->
+    <div class="modal fade" id="sampleModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
+            <h4 class="modal-title">タイトル</h4>
+          </div>
+          <div class="modal-body">
+            本文
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="modal_back" class="btn btn-default">部屋選択に戻る</button>
+            <button type="button" id="sampleButtonHide" class="btn btn-default">hide</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script>
+     $( function() {
+       $('#modal_back').click( function () {
+         window.location.href = "https://www.yahoo.co.jp/";
+       });
+       $('#sampleButtonHide').click( function () {
+         $('#sampleModal').modal('hide');
+       });
+     });
+    </script>
+
+
+
+

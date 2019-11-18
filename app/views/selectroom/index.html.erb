@@ -1,0 +1,12 @@
+<% if user_signed_in? %>
+  Logged in as <strong><%= current_user.email %></strong>.
+  <%= link_to "Settings", edit_user_registration_path %> |
+  <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+<% end %>
+
+<h1>部屋選択画面</h1>
+
+<%= link_to '部屋を新規作成' , rooms_path(name: current_user.name ,position:'owner') , method: :post , class: 'btn btn-primary' %>
+<%= link_to '部屋一覧へ', rooms_path , class: 'btn btn-primary' %><br><br>
+<%= link_to 'welcomページへ戻る', welcome_index_path , class: 'btn btn-primary'  %>
+

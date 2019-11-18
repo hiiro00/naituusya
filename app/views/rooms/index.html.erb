@@ -1,0 +1,27 @@
+<h1>部屋一覧画面</h1>
+
+<table class='table table-striped table-hover'>
+  <tr>
+    <th>部屋ID</th>
+    <th>オーナー</th>
+    <th>メンバー</th>
+  </tr>
+  
+  <% for i in 0..((@roomNum.count) -1) do %>
+    <tr>
+      <td><%= link_to @roomNum[i] ,   join_rooms_path(roomNum: @roomNum[i] , name:current_user.name) ,method: :put , class: 'widelink' %></td>
+      <td><%= link_to @ownName[i] ,   join_rooms_path(roomNum: @roomNum[i] , name:current_user.name) ,method: :put , class: 'widelink' %></td>
+
+      <% if @memberTxt[i].nil? %>
+        <td><%= link_to '　' , join_rooms_path(roomNum: @roomNum[i] , name:current_user.name) ,method: :put , class: 'widelink' %></td>
+      <% else %>
+        <td><%= link_to @memberTxt[i] , join_rooms_path(roomNum: @roomNum[i] , name:current_user.name) ,method: :put , class: 'widelink' %></td>
+      <% end %>
+      
+    </tr>
+  <% end %>
+</table>
+<%= link_to '部屋を新規作成' , rooms_path(name: current_user.name ,position:'owner') , method: :post  , class: 'btn btn-primary' %>
+<%= link_to '部屋選択画面へ戻る', selectroom_index_path , class: 'btn btn-primary' %><br><br>
+
+
