@@ -11,6 +11,8 @@ gem 'rails', '~> 5.2.3'
 gem 'sqlite3', '~> 1.3.6', groups: %w(test development), require: false
 gem 'pg', groups: %w(production), require: false
 
+# jquery-rails
+gem 'jquery-rails'
 
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
