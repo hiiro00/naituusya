@@ -6,6 +6,7 @@ App.chat = App.cable.subscriptions.create "ChatChannel",
     # Called when the subscription is ready for use on the server
 
   disconnected: ->
+    console.log("接続失敗")
     # Called when the subscription has been terminated by the server
 
   received: (data) ->
