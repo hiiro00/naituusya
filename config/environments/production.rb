@@ -45,8 +45,12 @@ Rails.application.configure do
   # config.action_cable.mount_path = nil
   # config.action_cable.url = 'wss://example.com/cable'
   # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
-  config.action_cable.url = "wss://naituusya.herokuapp.com/cable"
-  config.action_cable.allowed_request_origins = ["https://naituusya.herokuapp.com", "https://naituusya.herokuapp.com"]
+  hostname = "naituusya.herokuapp.com"
+  port = ENV.fetch('PORT')
+  base_url = "#{hostname}:#{port}"
+  
+  config.action_cable.url = "wss://#{hostname}/cable"
+  config.action_cable.allowed_request_origins = ["https://#{base_url}", "https://#{hostname}"]
   
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
