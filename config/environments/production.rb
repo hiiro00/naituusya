@@ -46,7 +46,7 @@ Rails.application.configure do
   # config.action_cable.url = 'wss://example.com/cable'
   # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
   hostname = "naituusya.herokuapp.com"
-  port = ENV.fetch('PORT')
+  port = "48646"   # port = ENV.fetch('PORT')
   base_url = "#{hostname}:#{port}"
   
   config.action_cable.url = "wss://#{hostname}/cable"
