@@ -93,6 +93,33 @@ App.chat = App.cable.subscriptions.create "ChatChannel",
             $('#modal_err_createVlg_lackmember').modal('show')
         
 
+    #　村（役職）画面
+    if document.getElementById('show_Vil_Num') != null
+      
+      console.log('村（役職）画面向け処理開始')
+      console.log(data)
+
+      # ゲーム結果を全員に通知の場合
+      if(mesg == "notif_result")
+        
+        console.log('ゲーム結果を全員に通知　処理開始')
+        
+        console.log('showvil_datatag_villageNumの出力 : %s', $('#showvil_datatag').data('villagenum'))
+        console.log('data[villageNum] : %s',data['villageNum'])
+        
+        # 該当の村idの場合
+        if $('#showvil_datatag').data('villagenum').textContent == data['villageNum'].textContent
+          console.log('村id一致')
+          $('#modal_notif_result').find('.modal-body').html(data['resultMsg']);
+          # $('#modal_notif_result').find('.modal-body').html("<h1> 内通者：ローシ  お題：寝袋 </h1>");
+          $('#modal_notif_result').modal('show')
+          
+        
+        
+
+
+
+
 
 
   put_message: (msg) ->

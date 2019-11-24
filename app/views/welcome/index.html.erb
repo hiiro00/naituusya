@@ -1,5 +1,6 @@
 <div >
 <h1>ようこそ！WEBアプリ内通者へ</h1>
+試験公開中 <br>
 
 <%= link_to 'ゲームを始める（部屋選択画面へ）', selectroom_index_path  , class: 'btn btn-primary'  %><br>
 <!--<%= link_to 'システムメッセージ通知画面へ', controller: 'home' %><br>-->
@@ -11,16 +12,17 @@
 
 道具がなくても、スマホひとつでゲームができるように作りました。<br>
 現在のお題登録数 : <%= Theme.count  %>個<br>
+最初に起動する場合は、30秒ほどかかる事があります。<br>
+
 <div style="text-align:right;">
     <span class="frame" >
         <img src="/jack30.jpg">
     </span>
 </div>
-
-
-
-
-
-
+<br>
+当サイトパス　QRコード<br>
+<div style="text-align:left;">
+        <img src="<%= asset_path "/qrnaiituusya.png" %>" />
+</div>
 
 

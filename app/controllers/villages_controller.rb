@@ -85,6 +85,20 @@ class VillagesController < ApplicationController
 
   end
   
+  # ゲーム結果を全員に通知する
+  def notif_result_village
+    logger.debug("Village#notif_result_villageに入りました")
+    logger.debug(params)
+    
+    @village = Village.where(villageNum: params[:villageNum].to_i).where(position: "内通者").first
+    msg = "<h1>内通者：#{@village.name}<br>  お題：#{@village.theme}</h1>"
+  
+    ChatChannel.broadcast_to('message', {"message"=>"notif_result", "roomNum"=>params[:roomNum], "villageNum"=> params[:villageNum],"resultMsg"=>msg})
+
+  end
+  
+  
+  
   
   def show
     # params villageNum: villageNumOrd , roomNum: params[:roomNum]

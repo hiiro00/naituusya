@@ -1,8 +1,11 @@
+<span id="showvil_datatag" data-roomnum= <%= @room.roomNum %> data-villagenum= <%= @village.villageNum %> data-position= <%= @room.position %> data-resultmsg=""  ></span> 
+
 <h1>役職画面</h1>
 
 <p>
   <strong>村ID:</strong>
-  <%= @village.villageNum  %>
+  <span id="show_Vil_Num"><%= @village.villageNum  %></span>
+  
 </p>
 
 <p>
@@ -37,7 +40,28 @@
 <%= link_to '部屋に戻る' , join_rooms_path(roomNum: @roomNum , name:current_user.name) ,method: :put ,data: { confirm: '部屋に戻ります。OK?' } , class: 'btn btn-primary'%>
 <% if @room.position == 'owner' %>
   <%= link_to '再送：役職を配布する' , resend_show_village_villages_path(roomNum: @roomNum , villageNum: @village.villageNum) ,method: :put , class: 'btn btn-primary'%>
+  <div style="margin-top : 3px">
+    <%= link_to 'ゲーム結果（正体）を全員に通知する' , notif_result_village_villages_path(roomNum: @roomNum , villageNum: @village.villageNum) ,method: :put ,data: { confirm: '全員に通知されます。OK?' }, class: 'btn btn-primary' %>
+  </div>  
 <% end %>
+
+<!-- モーダル -->
+<!-- ゲーム終了通知 -->
+<div class="modal fade" id="modal_notif_result" tabindex="-1" data-backdrop="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">ゲームの終了通知</h4>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="modal_btn_start_vil" class="btn btn-default" data-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 

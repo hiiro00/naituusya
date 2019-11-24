@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   	collection do
   	  get 'modal_trigger_show'
   	  put 'resend_show_village'
+  	  put 'notif_result_village'
   	end
   end
   
