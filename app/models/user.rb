@@ -8,6 +8,10 @@ class User < ApplicationRecord
   
   class << self
     def find_or_create_for_oauth(auth)
+      logger.debug("xxxxx  twitter auth log!!!")
+      logger.debug("auth.provider=#{auth.provider}")
+      logger.debug("auth.uid=#{auth.uid}")
+      logger.debug("auth.info.name=#{auth.info.name}")
       logger.debug("auth.info.email=#{auth.info.email}")
       find_or_create_by!(email: auth.info.email) do |user|
         user.provider = auth.provider
