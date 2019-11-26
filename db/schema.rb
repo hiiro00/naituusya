@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_16_075259) do
+ActiveRecord::Schema.define(version: 2019_11_26_142638) do
 
   create_table "comment1s", force: :cascade do |t|
     t.string "content"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 2019_10_16_075259) do
     t.string "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["content"], name: "index_themes_on_content", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -41,6 +42,8 @@ ActiveRecord::Schema.define(version: 2019_10_16_075259) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
+    t.string "provider"
+    t.string "uid"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

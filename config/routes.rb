@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   get 'villages/show'
   get 'village/show'
-  devise_for :users
+  devise_for :users, controllers: {
+    omniauth_callbacks: 'users/omniauth_callbacks',
+    registrations: 'users/registrations'
+  }
+
   resources :comment1s
   resources :themes
   resources :rooms do
