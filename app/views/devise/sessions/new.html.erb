@@ -1,4 +1,18 @@
-<h2>Log in</h2>
+<h2>ログイン</h2>
+<h5>ソーシャルアカウントを利用してログイン</h5>
+<%- if devise_mapping.omniauthable? %>
+  <%- resource_class.omniauth_providers.each do |provider| %>
+    <div class="btn btn-social btn-twitter" >
+      <span class="fa fa-twitter"></span>
+      <%= link_to "#{OmniAuth::Utils.camelize(provider)}でログイン", omniauth_authorize_path(resource_name, provider), :style=>"color:white;" %><br />
+    </div>
+  <% end %>
+<% end %>
+
+<hr class="divider">
+
+メールアドレスで、ログイン<br>
+
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="field">
@@ -14,7 +28,7 @@
   <% if devise_mapping.rememberable? %>
     <div class="field">
       <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+      <%= f.label "ログイン情報を保持する" %>
     </div>
   <% end %>
 
