@@ -11,29 +11,32 @@
 
 <hr class="divider">
 
-メールアドレスで、ログイン<br>
+<h5>メールアドレスで、ログイン</h5>
 
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
+<%= form_for(resource, as: resource_name, url: session_path(resource_name) , class:"form-horizontal") do |f| %>
+  <div class="form-group">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" , :class=>"form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
+    <%= f.password_field :password, autocomplete: "current-password", :class=>"form-control" %>
   </div>
 
   <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label "ログイン情報を保持する" %>
+    <div class="form-group">
+      <div class="col-xs-offset-1">
+        <div class="checkbox">
+          <%= f.check_box :remember_me %>
+          <%= f.label "ログイン情報を保持する" ,:style=>"padding-left:0px" %>
+        </div>
+      </div>
     </div>
   <% end %>
 
   <div class="actions">
-    <%= f.submit "Log in" %>
+    <%= f.submit "ログイン" ,class: 'btn btn-primary' %>
   </div>
 <% end %>
 
