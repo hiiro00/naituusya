@@ -5,6 +5,9 @@ class VillagesController < ApplicationController
     logger.debug("Village#createに入りました")
     logger.debug(params)
     
+    # 村テーブルメンテ　24h以上前の村を削除
+    Village.where('created_at <= ?', 24.hour.ago).delete_all
+    
     # villageNumのユニーク値算出
     max = Village.maximum(:villageNum)
     if max.nil?
