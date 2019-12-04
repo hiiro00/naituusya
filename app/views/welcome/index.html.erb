@@ -13,6 +13,7 @@
 道具がなくても、スマホひとつでゲームができるように作りました。<br>
 現在のお題登録数 : <%= Theme.count  %>個<br>
 最初に起動する場合は、30秒ほどかかる事があります。<br>
+<%= link_to 'このサイトについて', info_index_path ,class: 'glyphicon glyphicon-exclamation-sign' %><br>
 
 <div style="text-align:right;">
     <span class="frame" >
@@ -20,9 +21,10 @@
     </span>
 </div>
 <br>
+
+<div style="text-align:right;">
 当サイトパス　QRコード<br>
-<div style="text-align:left;">
-        <img src="<%= asset_path "/qrnaiituusya.png" %>" />
+    <img src="<%= asset_path "/qrnaiituusya.png" %>" />
 </div>
 
 

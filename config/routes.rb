@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :info, only: [:index]
+  resources :termsofservice, only: [:index]
+  resources :privacypolicy, only: [:index]
+  
   get 'villages/show'
   get 'village/show'
   devise_for :users, controllers: {
