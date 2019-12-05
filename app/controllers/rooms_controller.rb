@@ -3,16 +3,8 @@ class RoomsController < ApplicationController
     def create
       logger.debug("createに入りました")
       logger.debug(params)
-    	max = Room.maximum(:roomNum)
-    	if max.nil?
-    		roomNumOrd = 1
-    	else
-    		roomNumOrd = max + 1
-    	end
-    	
-    	p roomNumOrd
-    
-    	@room = Room.new(name:params[:name],position:"owner",roomNum:roomNumOrd)
+
+    	@room = Room.new(name:params[:name],position:"owner",roomNum: Room.createRoomNum)
     	@room.save
     	redirect_to @room
     end
@@ -21,25 +13,12 @@ class RoomsController < ApplicationController
       # roomDBの異常値チェック
       # roomNum:Nilがあった場合は削除
       Room.where(roomNum: nil).delete_all
-      
-      # 部屋の過去データ削除処理　今後記載予定
-      
-      
-      # 村の過去データ削除処理　今後記載予定
-      
-      
-      @rooms = Room.all
-      
+
       @roomNum = []
       @ownName = []
       @memberTxt = []
       
-      @roomNum,@ownName,@memberTxt = getRoomnumOwnnameMembertxt
-      
-      #　配列順序　逆順へ
-      @roomNum.reverse!
-      @ownName.reverse!
-      @memberTxt.reverse!
+      @roomNum,@ownName,@memberTxt = Room.getRoomIndexText
 
     end
     
@@ -110,16 +89,7 @@ class RoomsController < ApplicationController
       
       @room = Room.find(params[:id])
 
-      # indexと同じ処理
-      @rooms = Room.all
-      
-      @roomNum = []
-      @ownName = []
-      @memberTxt = []
-      @showMemberTxtAry = []
-      
-      @roomNum,@ownName,@memberTxt = getRoomnumOwnnameMembertxt
-      @showRoomNum,@showOwnName,@showMemberTxt,@showMemberTxtAry = getShowRoomnumOwnnameMembertxt(@room.roomNum,@roomNum,@ownName,@memberTxt)
+      @showRoomNum,@showOwnName,@showMemberTxtAry = Room.getRoomShowText(@room.roomNum)
       
       logger.debug("@showMemberTxt:")
       logger.debug(@showMemberTxt)
@@ -127,70 +97,6 @@ class RoomsController < ApplicationController
 
     end
     
-  # 表示向けデータ作成(一覧)
-  def getRoomnumOwnnameMembertxt
-  	@roomNum = []
-  	@ownName = []
-  	@memberTxt = []
-  
-  	@rooms.each do |room|
-  		if room.position == "owner"
-  		  @roomNum.push(room.roomNum)
-  		  @ownName.push(room.name)
-  		  @memberTxt.push(nil)
-  		end
-  	end
-  
-  	@rooms.each do |room|
-  		if room.position == "member"
-  		  
-  		  # エラーケースへの自浄行動
-  		  if @roomNum.index(room.roomNum).nil?
-  		    logger.debug("★★エラー！！！memberは存在するが、ownerが存在しない　自浄作業が必要な状況")
-  		    Room.where(id: room.id).delete_all
-  		  else
-    		  index = @roomNum.index(room.roomNum)
-    		  # logger.debug("room.id=#{room.id}")
-    		  # logger.debug("index=#{index}")
-    		  # logger.debug("@memberTxt=#{@memberTxt}")
-    		  
-    		  if @memberTxt[index] == nil
-    		    @memberTxt[index] = room.name
-    		  else
-    		    @memberTxt[index] = @memberTxt[index] + "," + room.name
-    		  end  		    
 
-  		  end
-  		end
-  	end
-  
-  	return @roomNum,@ownName,@memberTxt
-  end
-  
-  # 表示向けデータ作成(部屋個別)
-  def getShowRoomnumOwnnameMembertxt(roomNum ,roomNumA ,ownNameA ,memberTxtA)
-      # 自身のroomNumと一致する配列添字を算出
-      aryNum = 0
-      roomNumA.each_with_index do |room , i|
-        if room == roomNum
-          aryNum = i
-          break
-        end
-      end
-      
-      showRoomNum   = roomNumA[aryNum]
-      showOwnName   = ownNameA[aryNum]
-      showMemberTxt = memberTxtA[aryNum]
-      
-      if showMemberTxt.nil?
-        showMemberTxtAry = []
-      else
-        showMemberTxtAry = showMemberTxt.split(",")
-      end
-      
-      return showRoomNum,showOwnName,showMemberTxt,showMemberTxtAry
-  end
-    
-    
     
 end

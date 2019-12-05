@@ -9,35 +9,15 @@ class VillagesController < ApplicationController
     Village.where('created_at <= ?', 24.hour.ago).delete_all
     
     # villageNumのユニーク値算出
-    max = Village.maximum(:villageNum)
-    if max.nil?
-    	villageNumOrd = 1
-    else
-    	villageNumOrd = max + 1
-    end
+    villageNumOrd = Village.createVillageNum
     
     # お題　作成
     theme = Theme.where( 'id >= ?', rand(Theme.first.id..Theme.last.id) ).first.content
     
     ## 村　配役構築
     # 村メンバー算出
-    @rooms = Room.all
-    
-    @roomNum = []
-    @ownName = []
-    @memberTxt = []
+    @showRoomNum,@showOwnName,@showMemberTxt = Room.getRoomShowText(params[:roomNum].to_i)
 
-    @roomNum,@ownName,@memberTxt = getRoomnumOwnnameMembertxt
-    
-    # logger.debug("params[:roomNum] #{params[:roomNum]}")
-    # logger.debug("@roomNum #{@roomNum}")
-    # logger.debug("@ownName #{@ownName}")
-    # logger.debug("@memberTxt #{@memberTxt}")
-    
-    @showRoomNum,@showOwnName,@showMemberTxt = getShowRoomnumOwnnameMembertxt(params[:roomNum].to_i,@roomNum,@ownName,@memberTxt)
-    
-    logger.debug("@showMemberTxt: #{@showMemberTxt}")
-    
     # 村作成条件　チェック
     if @showMemberTxt.nil?
       logger.debug("メンバー０名で作成できず")
@@ -45,9 +25,8 @@ class VillagesController < ApplicationController
       return
     end
     
-    
-    @villageMember =[]
-    @villageMember = @showMemberTxt.split(",")
+    # 村メンバー　リスト　作成
+    @villageMember = @showMemberTxt
     @villageMember.push(@showOwnName)
 
     logger.debug("村メンバー：")
@@ -109,17 +88,13 @@ class VillagesController < ApplicationController
     logger.debug(params)
 
     @room = Room.where(name: current_user.name).where(roomNum: params[:roomNum].to_i)[0]
-    
-    logger.debug("@roomを表示")
-    logger.debug(@room)
     @roomId = @room.id
     @roomNum = params[:roomNum].to_i
-    logger.debug(@roomId)
-    logger.debug(@roomNum)
-    
 
     @village = Village.where(villageNum: params[:villageNum].to_i).where(name: current_user.name)[0]
   end
+  
+  
   
   def modal_trigger_show
     logger.debug("Village#modal_trigger_showに入りました")
@@ -134,63 +109,6 @@ class VillagesController < ApplicationController
     render :js => pram2
     
   end
-
-
-
-  # 表示向けデータ作成(一覧)
-  def getRoomnumOwnnameMembertxt
-  	@roomNum = []
-  	@ownName = []
-  	@memberTxt = []
-  
-  	@rooms.each do |room|
-  		if room.position == "owner"
-  		  @roomNum.push(room.roomNum)
-  		  @ownName.push(room.name)
-  		  @memberTxt.push(nil)
-  		end
-  	end
-  
-  	@rooms.each do |room|
-  		if room.position == "member"
-  		  index = @roomNum.index(room.roomNum)
-  		  
-  		  if @memberTxt[index] == nil
-  		    @memberTxt[index] = room.name
-  		  else
-  		    @memberTxt[index] = @memberTxt[index] + "," + room.name
-  		  end
-  		end
-  	end
-  
-  	return @roomNum,@ownName,@memberTxt
-  end
-  
-  # 表示向けデータ作成(部屋個別)
-  def getShowRoomnumOwnnameMembertxt(roomNum ,roomNumA ,ownNameA ,memberTxtA)
-      # logger.debug("getShowRoomnumOwnnameMembertxtに入りました")
-      # logger.debug("roomNum=#{roomNum.class}")
-      # 自身のroomNumと一致する配列添字を算出
-      aryNum = 0
-      # logger.debug("roomNumA.each_with_indexループ開始　")
-      roomNumA.each_with_index do |room , i|
-        # logger.debug("i=#{i} , room=#{room}")
-        if room == roomNum
-          # logger.debug("room == roomNum 条件成立 #{roomNum}")
-          aryNum = i
-          break
-        end
-      end
-      
-      # logger.debug("aryNum= #{aryNum}")
-      
-      showRoomNum   = roomNumA[aryNum]
-      showOwnName   = ownNameA[aryNum]
-      showMemberTxt = memberTxtA[aryNum]
-      
-      return showRoomNum,showOwnName,showMemberTxt
-  end
-
 
 
 
