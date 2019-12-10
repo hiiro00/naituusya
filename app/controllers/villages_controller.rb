@@ -19,7 +19,7 @@ class VillagesController < ApplicationController
     @showRoomNum,@showOwnName,@showMemberTxt = Room.getRoomShowText(params[:roomNum].to_i)
 
     # 村作成条件　チェック
-    if @showMemberTxt.nil?
+    if @showMemberTxt.blank?
       logger.debug("メンバー０名で作成できず")
       ChatChannel.broadcast_to('message', {"message"=>"err_createVlg_lackmember", "roomNum"=>params[:roomNum], "action"=>"err_createVlg_lackmember"})
       return
