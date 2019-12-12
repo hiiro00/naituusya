@@ -26,7 +26,7 @@ class User < ApplicationRecord
     end
     
     def checked_email(auth)
-      if auth.info.email.nil?
+      if auth.info.email.blank?
         "#{auth.uid}-#{auth.provider}@example.com"
       else
         auth.info.email
