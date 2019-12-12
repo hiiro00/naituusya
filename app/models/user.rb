@@ -9,7 +9,7 @@ class User < ApplicationRecord
   class << self
     def find_or_create_for_oauth(auth)
       logger.debug("xxxxx  twitter auth log!!!")
-      logger.debug("auth=#{auth}")
+      logger.debug("auth=#{authlogger.debug("auth.provider=#{auth.provider}")}")
       logger.debug("auth.provider=#{auth.provider}")
       logger.debug("auth.uid=#{auth.uid}")
       logger.debug("auth.info.name=#{auth.info.name}")
@@ -18,10 +18,18 @@ class User < ApplicationRecord
         user.provider = auth.provider
         user.uid = auth.uid
         user.name = auth.info.name
-        user.email = auth.info.email
+        user.email = User.checked_email(auth)
         password = Devise.friendly_token[0..5]
         logger.debug password
         user.password = password
+      end
+    end
+    
+    def self.checked_email(auth)
+      if auth.info.email.nil?
+        "#{auth.uid}-#{auth.provider}@example.com"
+      else
+        auth.info.email
       end
     end
 
