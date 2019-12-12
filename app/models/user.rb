@@ -14,7 +14,7 @@ class User < ApplicationRecord
       logger.debug("auth.uid=#{auth.uid}")
       logger.debug("auth.info.name=#{auth.info.name}")
       logger.debug("auth.info.email=#{auth.info.email}")
-      find_or_create_by!(email: auth.info.email) do |user|
+      find_or_create_by!(email: User.checked_email(auth)) do |user|
         user.provider = auth.provider
         user.uid = auth.uid
         user.name = auth.info.name
