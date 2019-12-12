@@ -9,6 +9,7 @@ class User < ApplicationRecord
   class << self
     def find_or_create_for_oauth(auth)
       logger.debug("xxxxx  twitter auth log!!!")
+      logger.debug("auth=#{auth}")
       logger.debug("auth.provider=#{auth.provider}")
       logger.debug("auth.uid=#{auth.uid}")
       logger.debug("auth.info.name=#{auth.info.name}")

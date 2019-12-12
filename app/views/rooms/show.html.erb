@@ -21,7 +21,7 @@
 
 
 <% if @room.position == 'owner' %>
-  <%= link_to '役職を配布する' , villages_path(roomNum: @room.roomNum ,name: @room.name ,roomId: @room.id ) , method: :post  , class: 'btn btn-primary'  %>
+  <%= link_to '役職を配布する' , villages_path(roomNum: @room.roomNum ,name: @room.name ,roomId: @room.id ) , method: :put  ,:remote => true, class: 'btn btn-primary'  %>
 <% else %>
   あなたはメンバーです。オーナーによるゲーム開始をお待ち下さい。<br><br>
 <% end %>

@@ -39,9 +39,9 @@
 
 <%= link_to '部屋に戻る' , join_rooms_path(roomNum: @roomNum , name:current_user.name) ,method: :put ,data: { confirm: '部屋に戻ります。OK?' } , class: 'btn btn-primary'%>
 <% if @room.position == 'owner' %>
-  <%= link_to '再送：役職を配布する' , resend_show_village_villages_path(roomNum: @roomNum , villageNum: @village.villageNum) ,method: :put , class: 'btn btn-primary'%>
+  <%= link_to '再送：役職を配布する' , resend_show_village_villages_path(roomNum: @roomNum , villageNum: @village.villageNum) ,method: :put , :remote => true ,  class: 'btn btn-primary'%>
   <div style="margin-top : 3px">
-    <%= link_to 'ゲーム結果（正体）を全員に通知する' , notif_result_village_villages_path(roomNum: @roomNum , villageNum: @village.villageNum) ,method: :put ,data: { confirm: '全員に通知されます。OK?' }, class: 'btn btn-primary' %>
+    <%= link_to 'ゲーム結果（正体）を全員に通知する' , notif_result_village_villages_path(roomNum: @roomNum , villageNum: @village.villageNum) ,method: :put , :remote => true ,data: { confirm: '全員に通知されます。OK?' }, class: 'btn btn-primary' %>
   </div>  
 <% end %>
 

@@ -21,6 +21,14 @@ class VillagesController < ApplicationController
     # 村作成条件　チェック
     if @showMemberTxt.blank?
       logger.debug("メンバー０名で作成できず")
+      # prm = "$('#modal_err_createVlg_lackmember').modal('show')"
+      # render :js => prm
+      # render "rooms/show"
+      
+      # pram2 = "window.location = '$('#modal_err_createVlg_lackmember').modal('show')'"
+      # render :js => pram2
+      #render js: "alert('Hello Rails');"
+      
       ChatChannel.broadcast_to('message', {"message"=>"err_createVlg_lackmember", "roomNum"=>params[:roomNum], "action"=>"err_createVlg_lackmember"})
       return
     end

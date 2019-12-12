@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   end
   resources :villages do
   	collection do
+  	  put 'create'
   	  get 'modal_trigger_show'
   	  put 'resend_show_village'
   	  put 'notif_result_village'
