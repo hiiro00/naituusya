@@ -1,4 +1,20 @@
 # frozen_string_literal: true
+require 'net/http'
+
+# 追加コード　code_oauth_kakuninn
+class Net::HTTP
+  alias :create :initialize
+
+  def initialize(*args)
+    logger = Rails.logger
+    def logger.<< log
+      info "HTTP_LOG:#{log}"
+    end
+    create(*args)
+    self.set_debug_output logger
+  end
+end
+
 
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
@@ -8,7 +24,7 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = '4e0721c577ec45ac53a39bce5bfbc34061c3006b375200901078fecc17e6edc728a2d4aef273ca5e95dd12fcd90734aebe1464723c8032879b2177e3fff353c4'
+  # config.secret_key = '512d54ba44086b7367615eb425fbfdec2e690b5014ef3dbcc56493f1f0f3dd4bff0ce1d21bdb3919a3acd3d997ac48ac1e7cd4a198f4f81883a46842531eae5b'
 
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
@@ -114,7 +130,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 11
 
   # Set up a pepper to generate the hashed password.
-  # config.pepper = '485230c7650748e9acc03dec88a09c2a82c11d4e92da17f300b0e6b018b9294c5dd081dc29f5ee640b44b1288e793ea6f18a1f4a646d2daf6b9352be55d4a1f8'
+  # config.pepper = 'f91794002b9ff55ae2009535f5ebd1edd82f2203067cb4e648cd394a4a5116334361d745f401689e319c3ea540b95407249a346800a9a021041102398f8eb27f'
 
   # Send a notification to the original email when the user's email is changed.
   # config.send_email_changed_notification = false
@@ -260,7 +276,15 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
+  
+  
+  # 追加コード　code_oauth_kakuninn
   config.omniauth :twitter, ENV['TWITTER_API_KEY'], ENV['TWITTER_API_SECRET']
+  # config.omniauth :twitter, '5ee3df8e9ee443c89cc469660c4d2ba8', 'd1941fc08050478e905ebd19ed7e0378'
+  # config.omniauth :twitter, 'c5DmEWcgDloPel3Nvrei96zcU', 'R8Hn4tXEnKAHRaOfgQwL7R8wS3xskWEWkX5wCg6VOCrR6REcRe'
+
+
+
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
