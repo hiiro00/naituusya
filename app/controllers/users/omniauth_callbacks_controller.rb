@@ -9,6 +9,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     callback
   end
 
+  def facebook
+    callback
+  end
+  
   # More info at:
   # https://github.com/plataformatec/devise#omniauth
 
