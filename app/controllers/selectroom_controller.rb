@@ -7,6 +7,9 @@ class SelectroomController < ApplicationController
     
     logger.debug(current_user.name)
     
+    # Userテーブルメンテ　24h以上前のログインアカウントを削除
+    User.where('created_at <= ?', 24.hour.ago).delete_all
+    
     # Roomテーブルメンテ　6h以上前のroomを削除 対象に
     rooms = Room.where(position: "owner").where('created_at <= ?', 6.hour.ago)
 

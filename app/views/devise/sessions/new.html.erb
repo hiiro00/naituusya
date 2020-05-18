@@ -18,33 +18,31 @@
 
 <hr class="divider">
 
-<h5>メールアドレスで、ログイン</h5>
+<h5>一時アカウントでログイン</h5>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name) , class:"form-horizontal") do |f| %>
-  <div class="form-group">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" , :class=>"form-control" %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+  <div class="field">
+    <%= f.label :名前 %>
+    <%= f.text_field :name , autocomplete: "name" , required: true %>
+  </div>
+  <div class="field">
+    <%= f.email_field :email, value: "a@a", type: "hidden" %>
   </div>
 
-  <div class="form-group">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password", :class=>"form-control" %>
+  <div class="field">
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= f.password_field :password, value: "naituupass", type: "hidden" %>
   </div>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="form-group">
-      <div class="col-xs-offset-1">
-        <div class="checkbox">
-          <%= f.check_box :remember_me %>
-          <%= f.label "ログイン情報を保持する" ,:style=>"padding-left:0px" %>
-        </div>
-      </div>
-    </div>
-  <% end %>
+  <div class="field">
+    <%= f.password_field :password_confirmation, value: "naituupass", type: "hidden" %>
+  </div>
 
   <div class="actions">
-    <%= f.submit "ログイン" ,class: 'btn btn-primary' %>
+    <%= f.submit "一時アカウントでログイン" ,class: 'btn btn-primary' %>
   </div>
 <% end %>
 
-<%= render "devise/shared/links" %>

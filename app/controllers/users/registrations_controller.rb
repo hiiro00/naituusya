@@ -10,9 +10,30 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    logger.debug("■SessionsController createに入りました")
+    logger.debug(params)
+    logger.debug(params[:user][:email])
+    logger.debug(User.last(10))
+    
+    # ユニークidを取得
+    if User.last.blank?
+      logger.debug("■Userにひとつもデータがなかった")
+      num = 1
+    else
+      num = User.maximum(:id).next
+    end
+    # ユニーク emailを設定
+    params[:user][:email] = (num.to_s + '@naituumail')
+    
+    sign_up_params[:password] = "naituupass"
+    sign_up_params[:password_confirmation] = "naituupass"
+    
+    logger.debug("■sign_up_paramsパラメータ変更後")
+    logger.debug(sign_up_params)
+
+    super
+  end
 
   # GET /resource/edit
   # def edit
