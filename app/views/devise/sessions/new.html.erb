@@ -2,10 +2,17 @@
 <h5>ソーシャルアカウントを利用してログイン</h5>
 <%- if devise_mapping.omniauthable? %>
   <%- resource_class.omniauth_providers.each do |provider| %>
-    <div class="btn btn-social btn-twitter" >
-      <span class="fa fa-twitter"></span>
-      <%= link_to "#{OmniAuth::Utils.camelize(provider)}でログイン", omniauth_authorize_path(resource_name, provider), :style=>"color:white;" %><br />
-    </div>
+    <% if OmniAuth::Utils.camelize(provider) == "Twitter" %>
+      <div class="btn btn-social btn-twitter" >
+        <span class="fa fa-twitter"></span>
+        <%= link_to "#{OmniAuth::Utils.camelize(provider)}でログイン", omniauth_authorize_path(resource_name, provider), :style=>"color:white;" %><br />
+      </div>
+    <% else %>
+      <div class="btn btn-social btn-facebook" >
+        <i class="fa fa-facebook-f"></i>
+        <%= link_to "#{OmniAuth::Utils.camelize(provider)}でログイン", omniauth_authorize_path(resource_name, provider), :style=>"color:white;" %><br />
+      </div>
+    <% end %>
   <% end %>
 <% end %>
 

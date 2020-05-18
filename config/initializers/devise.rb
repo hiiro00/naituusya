@@ -280,10 +280,7 @@ Devise.setup do |config|
   
   # 追加コード　code_oauth_kakuninn
   config.omniauth :twitter, ENV['TWITTER_API_KEY'], ENV['TWITTER_API_SECRET']
-  # config.omniauth :twitter, '5ee3df8e9ee443c89cc469660c4d2ba8', 'd1941fc08050478e905ebd19ed7e0378'
-  # config.omniauth :twitter, 'c5DmEWcgDloPel3Nvrei96zcU', 'R8Hn4tXEnKAHRaOfgQwL7R8wS3xskWEWkX5wCg6VOCrR6REcRe'
-
-
+  config.omniauth :facebook, FACEBOOK_ID=ENV['FACEBOOK_API_KEY'], FACEBOOK_SECRET_KEY=ENV['FACEBOOK_API_SECRET']
 
 
   # ==> Warden configuration
