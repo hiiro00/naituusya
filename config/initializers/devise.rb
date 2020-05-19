@@ -280,8 +280,14 @@ Devise.setup do |config|
   
   # 追加コード　code_oauth_kakuninn
   config.omniauth :twitter, ENV['TWITTER_API_KEY'], ENV['TWITTER_API_SECRET']
-  config.omniauth :facebook, FACEBOOK_ID=ENV['FACEBOOK_API_KEY'], FACEBOOK_SECRET_KEY=ENV['FACEBOOK_API_SECRET']
-
+  # config.omniauth :facebook, FACEBOOK_ID=ENV['FACEBOOK_API_KEY'], FACEBOOK_SECRET_KEY=ENV['FACEBOOK_API_SECRET'],
+  config.omniauth :facebook, FACEBOOK_ID='5ee3df8e9ee443c89cc469660c4d2ba8', FACEBOOK_SECRET_KEY='d1941fc08050478e905ebd19ed7e0378',
+    client_options: {
+      # site: 'https://graph.facebook.com/v4.0',
+      site: 'https://ves.linustest.net/simplesaml/module.php/oauth2',
+      # authorize_url: "https://www.facebook.com/v4.0/dialog/oauth"
+      authorize_url: "http://ves.linustest.net/simplesaml/module.php/oauth2/authorize.php"
+    }
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
