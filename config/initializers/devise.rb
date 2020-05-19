@@ -286,7 +286,7 @@ Devise.setup do |config|
       # site: 'https://graph.facebook.com/v4.0',
       site: 'https://ves.linustest.net/simplesaml/module.php/oauth2',
       # authorize_url: "https://www.facebook.com/v4.0/dialog/oauth"
-      authorize_url: "http://ves.linustest.net/simplesaml/module.php/oauth2/authorize.php"
+      authorize_url: "https://ves.linustest.net/simplesaml/module.php/oauth2/authorize.php"
     }
 
   # ==> Warden configuration
