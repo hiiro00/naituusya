@@ -282,6 +282,7 @@ Devise.setup do |config|
   config.omniauth :twitter, ENV['TWITTER_API_KEY'], ENV['TWITTER_API_SECRET']
   # config.omniauth :facebook, FACEBOOK_ID=ENV['FACEBOOK_API_KEY'], FACEBOOK_SECRET_KEY=ENV['FACEBOOK_API_SECRET'],
   config.omniauth :facebook, FACEBOOK_ID='5ee3df8e9ee443c89cc469660c4d2ba8', FACEBOOK_SECRET_KEY='d1941fc08050478e905ebd19ed7e0378',
+    scope: 'basic',
     client_options: {
       # site: 'https://graph.facebook.com/v4.0',
       site: 'https://ves.linustest.net/simplesaml/module.php/oauth2',
