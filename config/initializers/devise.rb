@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 require 'net/http'
-require 'logger'
+# require 'logger'
 
 # 追加コード　code_oauth_kakuninn
 class Net::HTTP
@@ -293,7 +293,7 @@ Devise.setup do |config|
 			connection_opts: { proxy: ENV["PROXIMO_URL"] }
     }
     
-  logger.debug(ENV["PROXIMO_URL"])
+  # logger.debug(ENV["PROXIMO_URL"])
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
