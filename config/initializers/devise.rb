@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require 'net/http'
+require 'logger'
 
 # 追加コード　code_oauth_kakuninn
 class Net::HTTP
