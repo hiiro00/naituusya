@@ -291,6 +291,8 @@ Devise.setup do |config|
       authorize_url: "https://mimajo.herokuapp.com",
 			connection_opts: { proxy: ENV["PROXIMO_URL"] }
     }
+    
+  logger.debug(ENV["PROXIMO_URL"])
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
