@@ -291,7 +291,7 @@ Devise.setup do |config|
       authorize_url: "https://ves.linustest.net/simplesaml/module.php/oauth2/authorize.php",
       # authorize_url: "https://mimajo.herokuapp.com",
       token_url: 'access_token.php',
-			connection_opts: { proxy: ENV["PROXIMO_URL"] }
+			# connection_opts: { proxy: ENV["PROXIMO_URL"] }
     }
     
   # logger.debug(ENV["PROXIMO_URL"])
